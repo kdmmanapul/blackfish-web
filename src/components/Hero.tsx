@@ -1,89 +1,42 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, PerspectiveCamera, Environment, Sparkles } from '@react-three/drei';
-import { Group } from 'three';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// ThreeJS animated background component
-const AnimatedBackground = () => {
-  const sparklesRef = useRef<Group>(null);
-  
-  useFrame(({ clock }) => {
-    if (sparklesRef.current) {
-      sparklesRef.current.rotation.y = clock.getElapsedTime() * 0.05;
-    }
-  });
-
-  return (
-    <>
-      <color attach="background" args={['#0a0a0a']} />
-      <PerspectiveCamera makeDefault position={[0, 0, 5]} />
-      <ambientLight intensity={0.2} />
-      <pointLight position={[10, 10, 10]} intensity={0.8} color="#d4af37" />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#ffffff" />
-      
-      <group ref={sparklesRef}>
-        <Sparkles 
-          count={200}
-          scale={[15, 15, 15]}
-          size={0.5}
-          speed={0.3}
-          color="#d4af37"
-        />
-        <Sparkles 
-          count={100}
-          scale={[10, 10, 10]}
-          size={0.3}
-          speed={0.2}
-          color="#ffffff"
-        />
-      </group>
-      
-      <Environment preset="night" />
-    </>
-  );
-};
-
 const Hero = () => {
   const heroRef = useRef(null);
   const textRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldShowHeroText, setShouldShowHeroText] = useState(true);
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: heroRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
+    // Capture initial scroll position
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    
+    // Determine if we should show the hero text based on initial scroll position
+    // If we're already scrolled past the hero section, don't animate in the text
+    setShouldShowHeroText(scrollY < viewportHeight * 0.5);
 
-    tl.to(textRef.current, {
-      y: 100,
-      opacity: 0,
-      ease: 'power2.inOut'
-    });
-
-    return () => {
-      if (tl.scrollTrigger) {
-        tl.scrollTrigger.kill();
-      }
-    };
+    // Ensure video plays
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.error("Video autoplay failed:", error);
+      });
+    }
   }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
-      opacity: 1,
+      opacity: shouldShowHeroText ? 1 : 0,
       transition: {
         duration: 1,
         staggerChildren: 0.2
@@ -94,8 +47,8 @@ const Hero = () => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
-      opacity: 1,
-      y: 0,
+      opacity: shouldShowHeroText ? 1 : 0,
+      y: shouldShowHeroText ? 0 : 20,
       transition: {
         duration: 0.8,
         ease: "easeOut"
@@ -108,12 +61,23 @@ const Hero = () => {
       ref={heroRef}
       className="relative h-screen w-full overflow-hidden"
     >
-      {/* ThreeJS Background */}
+      {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <Canvas>
-          <AnimatedBackground />
-        </Canvas>
+        <video 
+          ref={videoRef}
+          className="absolute w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src="videos/blackfish-background3.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
+      
+      {/* Dimming overlay */}
+      <div className="absolute inset-0 bg-black/60 z-5"></div>
       
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black z-10"></div>
@@ -138,7 +102,6 @@ const Hero = () => {
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white font-[family-name:var(--font-playfair)] luxury-text-shadow"
             variants={itemVariants}
           >
-            {/* THE <span className="text-gold gold-glow">BLACK</span> ROOM */}
             <span className="text-gold gold-glow">BLACKFISH</span> 
           </motion.h1>
           

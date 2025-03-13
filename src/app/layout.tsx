@@ -20,8 +20,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "The Black Room | Exclusive Speakeasy & Cocktail Bar",
-  description: "An exclusive speakeasy experience with craft cocktails and sophisticated ambiance. Step into luxury at The Black Room.",
+  title: "The Black Fish | Exclusive Speakeasy & Cocktail Bar",
+  description: "An exclusive speakeasy experience with craft cocktails and sophisticated ambiance. Step into luxury at The Black Fish.",
   keywords: "speakeasy, cocktail bar, luxury bar, craft cocktails, nightlife",
 };
 

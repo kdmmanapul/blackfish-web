@@ -45,11 +45,11 @@ const Footer = () => {
           {/* Logo & About */}
           <motion.div variants={itemVariants}>
             <h3 className="text-2xl font-bold font-[family-name:var(--font-playfair)] text-gold mb-4">
-              THE BLACK ROOM
+              THE BLACK FISH
             </h3>
             <p className="text-white/70 mb-6 text-sm leading-relaxed">
               An exclusive speakeasy experience with craft cocktails and sophisticated ambiance. 
-              Step into luxury at The Black Room.
+              Step into luxury at The Black Fish.
             </p>
             <div className="flex space-x-4">
               {/* Social Media Icons */}
@@ -151,7 +151,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-gold/10">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/50 text-sm mb-4 md:mb-0">
-              © {currentYear} The Black Room. All rights reserved.
+              © {currentYear} The Black Fish. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <Link href="/privacy-policy" className="text-white/50 hover:text-gold text-sm transition-colors duration-300">

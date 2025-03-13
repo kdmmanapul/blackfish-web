@@ -2,7 +2,6 @@
 
 import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 
 // Gallery image type
 type GalleryImage = {
@@ -243,7 +242,7 @@ const Gallery = () => {
             >
               {/* Placeholder for actual image in lightbox with dynamic background color */}
               <div className={`w-full h-[60vh] ${selectedImage ? getPlaceholderColor(selectedImage.id) : 'bg-gray-800'} flex items-center justify-center`}>
-                <span className="text-gold text-opacity-50">{selectedImage.alt}</span>
+                <span className="text-gold text-opacity-50">{selectedImage?.alt}</span>
               </div>
               
               {/* Uncomment when you have actual images */}

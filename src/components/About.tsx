@@ -3,7 +3,6 @@
 import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import gsap from 'gsap';
-import Image from 'next/image';
 
 const About = () => {
   const sectionRef = useRef(null);
@@ -108,7 +107,7 @@ const About = () => {
               className="text-white/80 mb-6 leading-relaxed"
               variants={itemVariants}
             >
-              Established in 2023, The Black Room was born from a passion for craftsmanship and a reverence for the prohibition era's clandestine elegance. Nestled in the heart of the city, our speakeasy offers an escape from the ordinary.
+              Established in 2023, The Black Fish was born from a passion for craftsmanship and a reverence for the prohibition era&apos;s clandestine elegance. Nestled in the heart of the city, our speakeasy offers an escape from the ordinary.
             </motion.p>
             
             <motion.p 
