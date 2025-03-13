@@ -1,0 +1,108 @@
+:root {
+  /* Main color palette */
+  --color-black: #0a0a0a;
+  --color-white: #f5f5f5;
+  --color-gold: #d4af37;
+  --color-gold-light: #e6c158;
+  --color-gold-dark: #b08c1e;
+  --color-gray: #333333;
+  --color-gray-light: #555555;
+  
+  /* Theme colors */
+  --background: var(--color-black);
+  --foreground: var(--color-white);
+  --accent: var(--color-gold);
+  --accent-light: var(--color-gold-light);
+  --accent-dark: var(--color-gold-dark);
+  
+  /* Typography */
+  --font-primary: var(--font-geist-sans);
+  --font-secondary: var(--font-geist-mono);
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s ease;
+  --transition-slow: 0.8s ease;
+}
+
+/* Utility classes */
+.text-gold {
+  color: var(--color-gold);
+}
+
+.bg-gold {
+  background-color: var(--color-gold);
+}
+
+.border-gold {
+  border-color: var(--color-gold);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-light));
+}
+
+.luxury-shadow {
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+}
+
+.luxury-text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.gold-glow {
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn var(--transition-medium) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp var(--transition-medium) forwards;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.gold-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.gold-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(30deg); }
+  100% { transform: translateX(100%) rotate(30deg); }
+} 
